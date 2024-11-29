@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Search Results</title>
+
+</head>
+<body>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo"><a href="index.html">MoviesMaza</a></label>
+        <ul>
+            <li><a class="active" href="index.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <form id="form" class="search-form" action="search.html" method="GET">
+                <input type="text" placeholder="search" id="search" name="query" class="search">
+            </form>
+            
+        </ul>
+    </nav>
+    <div id="advertisement-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '802a665249999b1700b530b7d9cb7859',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//magicianmost.com/802a665249999b1700b530b7d9cb7859/invoke.js"></script>
+    </div>
+    <div id="advertisement-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '802a665249999b1700b530b7d9cb7859',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//magicianmost.com/802a665249999b1700b530b7d9cb7859/invoke.js"></script>
+    </div>
+    
+
+    <div id="search-results-container">
+        <h2>Search Results</h2>
+        <div id="search-results"></div>
+    </div>
+    <div id="advertisement-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '802a665249999b1700b530b7d9cb7859',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//magicianmost.com/802a665249999b1700b530b7d9cb7859/invoke.js"></script>
+    </div>
+    <div id="advertisement-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '802a665249999b1700b530b7d9cb7859',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script type="text/javascript" src="//magicianmost.com/802a665249999b1700b530b7d9cb7859/invoke.js"></script>
+    </div>
+    
+    
+    <footer>
+        <p>&copy; 2024 MoviesMaza. All rights reserved.</p>
+        <p>
+            <a href="#">About</a> | 
+            <a href="#">Contact</a> | 
+            <a href="#">Privacy Policy</a>
+        </p>
+    </footer>
+
+    <script>
+        const API_KEY = 'a306f6ab5d09bef9530951ee7289f8be';
+        const BASE_URL = 'https://api.themoviedb.org/3';
+        const IMG_URL = 'https://image.tmdb.org/t/p/w200';
+
+        async function searchMovies(query) {
+            const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            return data.results;
+        }
+
+        async function searchTVShows(query) {
+            const response = await fetch(`${BASE_URL}/search/tv?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            return data.results;
+        }
+
+        function displaySearchResults(movieResults, tvShowResults) {
+            const searchResultsContainer = document.getElementById('search-results-container');
+            const searchResultsDiv = document.getElementById('search-results');
+            searchResultsDiv.innerHTML = ''; // Clear previous results
+            searchResultsContainer.style.display = 'block';
+
+            // Function to create result item
+            function createResultItem(result, type) {
+                const item = document.createElement('div');
+                item.className = 'result-item';
+                
+                const poster = document.createElement('img');
+                poster.src = result.poster_path ? `${IMG_URL}${result.poster_path}` : 'placeholder.jpg';
+                poster.alt = result.title || result.name;
+
+                const name = document.createElement('p');
+                name.textContent = result.title || result.name;
+
+                const link = document.createElement('a');
+                link.href = `details.html?id=${result.id}&type=${type}`;
+                link.appendChild(poster);
+                link.appendChild(name);
+
+                item.appendChild(link);
+                return item;
+            }
+
+            // Append movie results
+            if (movieResults.length > 0) {
+                movieResults.forEach(result => {
+                    const item = createResultItem(result, 'movie');
+                    searchResultsDiv.appendChild(item);
+                });
+            }
+
+            // Append TV show results
+            if (tvShowResults.length > 0) {
+                tvShowResults.forEach(result => {
+                    const item = createResultItem(result, 'tv');
+                    searchResultsDiv.appendChild(item);
+                });
+            }
+        }
+
+        async function init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const query = urlParams.get('query');
+
+            if (query) {
+                const movieResults = await searchMovies(query);
+                const tvShowResults = await searchTVShows(query);
+
+                if (movieResults.length > 0 || tvShowResults.length > 0) {
+                    displaySearchResults(movieResults, tvShowResults);
+                } else {
+                    alert('No results found for your search query.');
+                }
+            }
+        }
+
+        init();
+    </script>
+    
+</body>
+</html>

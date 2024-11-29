@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href=
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="details.css">
+    
+    <title>Movie/TV Details</title>
+</head>
+<style>
+    #streaming,#streaming1,#streaming2 {
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  background-color: #f0f0f0; /* Light gray background */
+  display: flex; /* Flexbox layout */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  font-family: Arial, sans-serif; /* Font style */
+  color: #333; /* Text color */
+  border: 1px solid #ccc; /* Light gray border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding inside the div */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+#streaming h1 {
+  font-size: 2em; /* Font size for heading */
+  margin-bottom: 0.5em; /* Space below heading */
+}
+
+#streaming p {
+  font-size: 1em; /* Font size for paragraph */
+  line-height: 1.5; /* Line height for paragraph */
+  text-align: center; /* Centered text alignment */
+}
+
+#streaming button {
+  padding: 10px 20px; /* Button padding */
+  font-size: 1em; /* Button font size */
+  background-color: #007BFF; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none; /* Remove button border */
+  border-radius: 4px; /* Rounded button corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+#streaming button:hover {
+  background-color: #0056b3; /* Darker background color on hover */
+}
+
+</style>
+
+<body>
+
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo"><a href="index.html">MoviesMaza</a></label>
+        <ul>
+            <li><a class="active" href="index.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <form id="form" class="search-form" action="search.html" method="GET">
+                <input type="text" placeholder="search" id="search" name="query" class="search">
+            </form>
+            
+        </ul>
+    </nav>
+
+
+    <h3 id="player">Player1</h3>
+    <div id="streaming"></div>
+
+    <h3 id="player">Player2</h3>
+    <div id="streaming1"></div>
+
+    <h3 id="player">Player3</h3>
+    <div id="streaming2"></div>
+    
+    
+    <footer>
+        <p>&copy; 2024 MoviesMaza. All rights reserved.</p>
+        <p>
+            <a href="#">About</a> | 
+            <a href="#">Contact</a> | 
+            <a href="#">Privacy Policy</a>
+        </p>
+    </footer>
+
+    
+    
+</body>
+
+<script>
+    // Retrieve the streaming URL from sessionStorage
+    var streamingUrl = sessionStorage.getItem('streamingUrl');
+
+    // Check if streamingUrl is available
+    if (streamingUrl) {
+        // Create and embed the streaming player
+        var playerDiv = document.getElementById('streaming');
+        playerDiv.innerHTML = '<iframe src="' + streamingUrl + '" width="600" height="400" frameborder="0" allowfullscreen></iframe>';
+    } else {
+        // Display an error message if the URL is not available
+        document.body.innerHTML = '<p>Error: Streaming URL not found.</p>';
+    }
+
+    var streamingUrl1 = sessionStorage.getItem('streamingUrl');
+
+// Check if streamingUrl is available
+    if (streamingUrl1) {
+        // Create and embed the streaming player
+        var playerDiv = document.getElementById('streaming1');
+        playerDiv.innerHTML = '<iframe src="' + streamingUrl1 + '" width="600" height="400" frameborder="0" allowfullscreen></iframe>';
+    } else {
+        // Display an error message if the URL is not available
+        document.body.innerHTML = '<p>Error: Streaming URL not found.</p>';
+    }
+    var streamingUrl2 = sessionStorage.getItem('streamingUrl2');
+
+// Check if streamingUrl is available
+    if (streamingUrl2) {
+        // Create and embed the streaming player
+        var playerDiv = document.getElementById('streaming2');
+        playerDiv.innerHTML = '<iframe src="' + streamingUrl2 + '" width="600" height="400" frameborder="0" allowfullscreen></iframe>';
+    } else {
+        // Display an error message if the URL is not available
+        document.body.innerHTML = '<p>Error: Streaming URL not found.</p>';
+    }
+</script>
+</html>
+
+
+
+
+
+
+
+

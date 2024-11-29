@@ -1,0 +1,435 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
+body {
+   font-family: 'Poppins', Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+   background-color: #f4f4f4;
+   color: #333;
+}
+
+/* Navbar styles */
+nav {
+   background-color: green;
+   color: white;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px 20px;
+   z-index: 10;
+   position: relative;
+}
+
+.logo a {
+   color: white;
+   text-decoration: none;
+   font-size: 24px;
+   font-weight: bold;
+ }
+ 
+
+nav ul {
+   display: flex;
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   z-index: 10;
+   position: relative;
+}
+
+nav ul li {
+   margin-right: 20px;
+}
+
+nav ul li a {
+   color: white;
+   text-decoration: none;
+   transition: color 0.3s;
+}
+
+nav ul li a:hover {
+   color: lightgreen;
+}
+
+.checkbtn {
+   font-size: 30px;
+   color: white;
+   cursor: pointer;
+   display: none;
+   z-index: 20;
+}
+/* Episode button styles */
+#episode-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+   justify-content: center;
+   margin: 20px 0;
+}
+
+#episode-container button {
+   background-color: #4CAF50;
+   color: white;
+   border: none;
+   padding: 10px 20px;
+   margin: 5px;
+   cursor: pointer;
+   border-radius: 5px;
+   font-size: 16px;
+   transition: background-color 0.3s, transform 0.2s;
+}
+
+#episode-container button:hover {
+   background-color: #45a049;
+}
+
+#episode-container button:focus {
+   outline: none;
+   transform: scale(1.05);
+   background-color: #45a049;
+}
+
+#check {
+   display: none;
+}
+
+/* Search form styles */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 50px;
+    padding: 5px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-form input[type="text"] {
+    border: none;
+    background-color: transparent;
+    padding: 8px 12px;
+    font-size: 16px;
+    outline: none;
+    flex: 1;
+}
+
+.search-form button[type="submit"] {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    padding: 8px 12px;
+}
+
+.search-form button[type="submit"] i {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Movie details styles */
+.movie-details {
+   display: flex;
+   flex-wrap: wrap;
+   margin: 20px;
+   padding: 20px;
+   border-radius: 8px;
+}
+
+#movie-poster {
+   flex: 1;
+   max-width: 300px;
+   border-radius: 8px;
+   margin-right: 20px;
+}
+
+.movie-info {
+   flex: 2;
+}
+
+.movie-info h1 {
+   margin-top: 0;
+}
+
+.movie-info p {
+   line-height: 1.6;
+}
+
+#movie-actors,
+#movie-creators {
+   list-style: none;
+   padding: 0;
+}
+
+#movie-actors li,
+#movie-creators li {
+   margin-bottom: 5px;
+}
+
+h3 {
+   margin-top: 20px;
+}
+
+
+/* Streaming container styles */
+#streaming-container1,
+#streaming-container2,
+#streaming-container3,
+#streaming-container4 {
+   margin: 20px auto; /* Center the containers horizontally */
+   text-align: center;
+   background-color: black;
+   padding: 20px;
+   border-radius: 8px;
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   max-width: 1000px; /* Increased max-width */
+}
+
+#player {
+   margin: 20px auto;
+   max-width: 800px;
+   text-align: center;
+   font-size: 24px;
+   color: #333;
+   border-bottom: 2px solid #333;
+   padding-bottom: 10px;
+}
+
+iframe {
+   width: 100%;
+   max-width: 800px;
+   height: 450px;
+   border: none;
+   border-radius: 8px;
+}
+.table-wrapper {
+   max-height: 400px;
+   overflow-y: auto;
+   margin: 20px 0;
+   position: relative;
+}
+
+.table-wrapper table {
+   width: 100%;
+   border-collapse: collapse;
+   table-layout: fixed;
+}
+
+.table-wrapper th, .table-wrapper td {
+   padding: 10px;
+   text-align: left;
+  
+}
+
+.table-wrapper thead {
+   background-color: #333;
+   color: #fff;
+   position: sticky;
+   top: 0;
+   z-index: 1;
+}
+
+
+
+/* Hover effect for table rows */
+.table-wrapper tr:hover {
+   background-color: #007BFF; /* Change to your desired hover color */
+}
+.table-wrapper tr {
+   background-color: #000;
+   color: #f4f4f4;
+}
+
+/* Responsive styles */
+
+/* Responsive styles */
+@media (max-min: 768px) {
+   .table-wrapper {
+       overflow-x: auto;
+   }
+
+   .table-wrapper table {
+       width: 100%;
+       display: block;
+   }
+
+   .table-wrapper thead, .table-wrapper tbody, .table-wrapper th, .table-wrapper td, .table-wrapper tr {
+       display: block;
+   }
+
+   .table-wrapper tr {
+       display: flex;
+       flex-direction: column;
+       margin-bottom: 15px;
+       border: 1px solid #ddd;
+       padding: 10px;
+   }
+
+   .table-wrapper td {
+       text-align: left;
+       padding-left: 10px;
+       position: relative;
+       white-space: normal;
+       overflow-wrap: break-word;
+   }
+
+   .table-wrapper td:before {
+       content: attr(data-label);
+       position: absolute;
+       left: 10px;
+       top: 0;
+       font-weight: bold;
+       white-space: nowrap;
+       text-align: left;
+   }
+
+   .table-wrapper th {
+       display: none;
+   }
+}
+
+
+/* Responsive styles */
+
+
+
+
+/* Footer styles */
+footer {
+   background-color: #333;
+   color: #fff;
+   text-align: center;
+   padding: 20px 0;
+   position: relative;
+   bottom: 0;
+   width: 100%;
+}
+
+footer p {
+   margin: 5px 0;
+}
+
+footer a {
+   color: #f1c40f;
+   text-decoration: none;
+   margin: 0 10px;
+}
+
+footer a:hover {
+   text-decoration: underline;
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+   .checkbtn {
+       display: block;
+       order: 1;
+       margin-right: 20px;
+   }
+   
+   
+
+   nav ul {
+       position: fixed;
+       top: 80px;
+       right: -100%;
+       background-color: green;
+       width: 100%;
+       height: 100vh;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       transition: all 0.3s;
+       z-index: 9; /* Make sure it is above other content */
+   }
+   #episode-container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  #episode-container button {
+      width: 80%;
+      font-size: 18px;
+      padding: 12px;
+  }
+
+   nav ul li {
+       margin: 20px 0;
+   }
+
+   nav ul li a {
+       font-size: 20px;
+   }
+
+   #check:checked ~ ul {
+       right: 0;
+   }
+}
+
+.movie {
+   position: relative;
+   z-index: 1;
+}
+/* Season button styles */
+#season-container {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+   justify-content: center;
+   margin: 20px 0;
+}
+
+#season-container button {
+   background-color: #007BFF; /* Bootstrap primary blue color */
+   color: white;
+   border: none;
+   padding: 10px 20px;
+   margin: 5px;
+   cursor: pointer;
+   border-radius: 5px;
+   font-size: 16px;
+   transition: background-color 0.3s, transform 0.2s;
+}
+
+#season-container button:hover {
+   background-color: #0056b3; /* Darker blue for hover effect */
+}
+
+#season-container button:focus {
+   outline: none;
+   transform: scale(1.05);
+   background-color: #0056b3;
+}
+
+/* Responsive adjustments for season buttons */
+@media (max-width: 768px) {
+   #season-container {
+       flex-direction: column;
+       align-items: center;
+   }
+
+   #season-container button {
+       width: 80%;
+       font-size: 18px;
+       padding: 12px;
+   }
+}
+.loading {
+   display: none; /* Hidden by default */
+   position: fixed; /* Stay in place */
+   z-index: 1000; /* Sit on top */
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 3rem;
+   color: #000;
+}
+
+
+

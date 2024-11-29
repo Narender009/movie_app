@@ -1,0 +1,507 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #22254b;
+    --secondary-color: #373b69;
+}
+
+body {
+    background-color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+}
+
+/* Header styles */
+header {
+    padding: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--secondary-color);
+}
+
+/* Search bar styles */
+.search {
+    background-color: whitesmoke;
+    border: 2px solid var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    color: #7378c5; /* Changed from white to improve readability */
+    font-family: inherit;
+}
+
+.search:focus {
+    outline: 0;
+    background-color: var(--primary-color);
+}
+
+.search::placeholder {
+    color: #7378c5;
+}
+
+/* Main content layout */
+main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem; /* Added padding for better spacing */
+    gap: 1rem; /* Added gap for consistent spacing */
+}
+
+/* Movie card styles */
+.movie {
+    width: 250px; /* Adjusted width for better fit */
+    margin: 1rem;
+    border-radius: 3px;
+    box-shadow: 0.2px 4px 5px rgba(0, 0, 0, 0.1);
+    background-color: var(--secondary-color);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out; /* Added transition for hover effect */
+}
+
+.movie:hover {
+    transform: scale(1.05); /* Added hover effect for better user interaction */
+}
+
+.movie img {
+    width: 100%;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px; /* Rounded top corners */
+}
+
+/* Movie info container */
+.movie-info {
+    color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem 1rem;
+    letter-spacing: 0.5px;
+}
+
+.movie-info h3 {
+    margin-top: 0;
+    font-size: 1.25rem; /* Adjust font size */
+    font-weight: 700; /* Use bold font weight */
+    color: #fff; /* White color for better readability */
+    text-overflow: ellipsis; /* Truncate long titles */
+    overflow: hidden;
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.movie-info span {
+    background-color: var(--primary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-weight: bold;
+}
+
+.movie-info span.green {
+    color: lightgreen;
+}
+
+.movie-info span.orange {
+    color: orange;
+}
+
+.movie-info span.red {
+    color: red;
+}
+
+/* Movie overview styles */
+.overview {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    padding: 1rem;
+    max-height: 50%;
+    transform: translateY(101%);
+    transition: transform 0.3s ease-in;
+}
+
+.movie:hover .overview {
+    transform: translateY(0);
+}
+
+/* Video button styles */
+.video-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in;
+}
+
+.video-button:hover {
+    background-color: #666;
+}
+
+/* Provider button styles */
+.provider-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in;
+}
+
+.provider-button:hover {
+    background-color: #666;
+}
+
+/* Pagination styles */
+.provider-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in;
+}
+
+.provider-button:hover {
+    background-color: #666;
+}
+
+/* Pagination styles */
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    margin: 20px 0;
+}
+
+#pagination button {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease-in, color 0.2s ease-in;
+    margin: 0 5px;
+}
+
+#pagination button:hover {
+    background-color: #0056b3;
+    color: #e0e0e0;
+}
+
+#pagination button:disabled {
+    background-color: #c0c0c0;
+    border: 1px solid #c0c0c0;
+    cursor: not-allowed;
+}
+
+#pagination .page-info {
+    font-size: 1rem;
+    font-weight: normal;
+    margin: 0 15px;
+    color: #333;
+}
+#advertisement-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#advertisement-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+
+/* Dropdown Button */
+/* Dropdown styles */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1024px) {
+    .dropdown {
+        margin-right: 5px;
+    }
+
+    .dropbtn {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .dropdown-content {
+        min-width: 140px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .dropdown {
+        display: inline-block;
+        margin: 10px;
+       
+        
+    }
+
+    .dropbtn {
+        width: 100%;
+        text-align: left;
+        font-size: 0.98rem;
+        
+    }
+
+    .dropdown-content {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .dropbtn {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .dropdown-content a {
+        padding: 10px 14px;
+    }
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+footer a {
+    color: #f1c40f;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: #fff;
+}
+
+.navbar-brand a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links li {
+    display: inline;
+}
+
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-links a:hover {
+    text-decoration: underline;
+}
+
+/* menu-bar */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+nav {
+    background-color: green;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 10;
+    position: relative;
+}
+
+.logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+
+ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 10;
+    position: relative;
+}
+
+ul li {
+    margin-right: 20px;
+}
+
+ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+ul li a:hover {
+    color: lightgreen;
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    display: none;
+    z-index: 20;
+}
+
+#check {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .checkbtn {
+        display: block;
+        order: 1;
+        margin-right: 20px;
+    }
+
+    ul {
+        position: fixed;
+        top: 80px;
+        right: -100%;
+        background-color: green;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.3s;
+        z-index: 9;
+    }
+
+    ul li {
+        margin: 20px 0;
+    }
+
+    ul li a {
+        font-size: 20px;
+    }
+
+    #check:checked ~ ul {
+        right: 0;
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        padding: 0 1rem; /* Add padding to main for consistent side margins */
+    }
+
+    .movie {
+        width: 100%;
+        margin: 1rem 0; /* Add margin for top and bottom */
+    }
+}
+
+.loading {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: #000;
+}
