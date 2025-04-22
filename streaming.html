@@ -20,3 +20,284 @@ https://vidsrc.xyz/embed/tv
 
 streamingURL4 = `https://2embed.org/embed/tv/${id}/${season}/${episode}`;
 streamingURL4 = `https://2embed.org/embed/movie/${id}`;
+
+
+
+
+
+https://show2embed.web.app/watch/{TMDb_ID}
+
+https://multiembed.mov/?video_id=${id}&tmdb=1&s=${season}&e=${episode}
+https://multiembed.mov/?video_id=${id}&tmdb=1
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="details.css">
+    <title>Movie/TV Details</title>
+
+</head>
+<script async="async" data-cfasync="false" src="//thubanoa.com/1?z=7621528"></script>
+
+<body>
+
+<nav>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+    </label>
+    <label class="logo"><a href="index.html">MoviesMaza</a></label>
+    <ul>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+        <form id="form" class="search-form" action="search.html" method="GET">
+            <input type="text" placeholder="search" id="search" name="query" class="search">
+        </form>
+    </ul>
+</nav>
+
+<div id="loading" class="loading">
+    <i class="fas fa-spinner fa-spin"></i>
+</div>
+<div class="movie-details">
+    <img id="movie-poster" alt="Poster">
+    <div class="movie-info">
+        <h1 id="movie-title">Title</h1>
+        <p id="movie-overview">Overview</p>
+        <p id="movie-release-date"><strong>Release Date:</strong> </p>
+        <p id="movie-genres"><strong>Genres:</strong> </p>
+        <h3>Actors</h3>
+        <ul id="movie-actors"></ul>
+        <h3>Creators</h3>
+        <ul id="movie-creators"></ul>
+    </div>
+</div>
+<div id="season-container"></div>
+<div id="episode-container" class="table-wrapper"></div>
+<h3 id="player">Player1</h3>
+<div id="streaming-container1"></div>
+<h3 id="player">Player2</h3>
+<div id="streaming-container2"></div>
+<h3 id="player">Player3</h3>
+<div id="streaming-container3"></div>
+
+<footer>
+    <p>&copy; 2024 MoviesMaza. All rights reserved.</p>
+    <p>
+        <a href="#">About</a> |
+        <a href="#">Contact</a> |
+        <a href="#">Privacy Policy</a>
+    </p>
+</footer>
+
+<script>
+    const API_KEY = 'a306f6ab5d09bef9530951ee7289f8be';
+    const BASE_URL = 'https://api.themoviedb.org/3';
+    const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const id = urlParams.get('id');
+    const isTV = urlParams.get('type') === 'tv';
+
+    async function fetchDetails(id, isTV) {
+        const type = isTV ? 'tv' : 'movie';
+        const response = await fetch(`${BASE_URL}/${type}/${id}?api_key=${API_KEY}&language=en-US`);
+        const details = await response.json();
+        return details;
+    }
+
+    async function fetchCredits(id, isTV) {
+        const type = isTV ? 'tv' : 'movie';
+        const response = await fetch(`${BASE_URL}/${type}/${id}/credits?api_key=${API_KEY}`);
+        const credits = await response.json();
+        return credits;
+    }
+
+    function displayDetails(details, isTV) {
+        const poster = document.getElementById('movie-poster');
+        const title = document.getElementById('movie-title');
+        const overview = document.getElementById('movie-overview');
+        const releaseDate = document.getElementById('movie-release-date');
+        const genres = document.getElementById('movie-genres');
+
+        poster.src = `${IMG_URL}${details.poster_path}`;
+        title.textContent = isTV ? details.name : details.title;
+        overview.textContent = details.overview;
+        releaseDate.innerHTML = `<strong>Release Date:</strong> ${isTV ? details.first_air_date : details.release_date}`;
+        genres.innerHTML = `<strong>Genres:</strong> ${details.genres.map(genre => genre.name).join(', ')}`;
+    }
+
+    function displayCredits(credits) {
+        const actors = document.getElementById('movie-actors');
+        const creators = document.getElementById('movie-creators');
+
+        actors.innerHTML = '';
+        creators.innerHTML = '';
+
+        credits.cast.slice(0, 5).forEach(actor => {
+            const li = document.createElement('li');
+            li.textContent = actor.name;
+            actors.appendChild(li);
+        });
+
+        credits.crew.filter(member => member.job === 'Director' || member.job === 'Producer').forEach(creator => {
+            const li = document.createElement('li');
+            li.textContent = `${creator.name} (${creator.job})`;
+            creators.appendChild(li);
+        });
+    }
+
+    async function fetchSeasons(id) {
+        const response = await fetch(`${BASE_URL}/tv/${id}?api_key=${API_KEY}&language=en-US`);
+        const data = await response.json();
+        return data.seasons;
+    }
+
+    async function fetchEpisodes(id, seasonNumber) {
+        const response = await fetch(`${BASE_URL}/tv/${id}/season/${seasonNumber}?api_key=${API_KEY}&language=en-US`);
+        const data = await response.json();
+        return data.episodes;
+    }
+
+    async function displaySeasons(id) {
+        const seasonContainer = document.getElementById('season-container');
+        seasonContainer.innerHTML = '';
+        const seasons = await fetchSeasons(id);
+
+        seasons.forEach((season) => {
+            if (season.season_number !== 0) {  // Filter out season 0
+                const seasonButton = document.createElement('button');
+                seasonButton.textContent = `Season ${season.season_number}`;
+                seasonButton.addEventListener('click', () => {
+                    showLoadingIcon();
+                    displayEpisodes(id, season.season_number);
+                });
+                seasonContainer.appendChild(seasonButton);
+            }
+        });
+    }
+
+    async function displayEpisodes(id, seasonNumber) {
+    const episodeContainer = document.getElementById('episode-container');
+    episodeContainer.innerHTML = '';
+
+    const episodes = await fetchEpisodes(id, seasonNumber);
+
+    // Create a wrapper for the table
+    const tableWrapper = document.createElement('div');
+    tableWrapper.className = 'table-wrapper';
+
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    thead.innerHTML = `
+        <tr>
+            <th>Ep</th>
+            <th>Title</th>
+            <th>Sub</th>
+            <th>Release Date</th>
+        </tr>
+    `;
+
+    // Append the episodes in reverse order to display new episodes at the top
+    episodes.reverse().forEach(episode => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td data-label="Ep">${episode.episode_number}</td>
+            <td data-label="Title">${episode.name}</td>
+            <td data-label="Sub">sub</td>
+            <td data-label="Release Date">${episode.air_date}</td>
+        `;
+        row.addEventListener('click', () => {
+            // Remove 'selected' class from all rows
+            Array.from(tbody.children).forEach(r => r.classList.remove('selected'));
+            // Add 'selected' class to the clicked row
+            row.classList.add('selected');
+            // Display streaming URLs
+            displayStreamingURL(id, true, seasonNumber, episode.episode_number);
+        });
+        tbody.appendChild(row);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    tableWrapper.appendChild(table);
+    episodeContainer.appendChild(tableWrapper);
+
+    hideLoadingIcon();
+}
+
+    function showLoadingIcon() {
+        const loadingIcon = document.getElementById('loading');
+        loadingIcon.style.display = 'block';
+    }
+
+    function hideLoadingIcon() {
+        const loadingIcon = document.getElementById('loading');
+        loadingIcon.style.display = 'none';
+    }
+
+        function displayStreamingURL(id, isTV, season = null, episode = null) {
+            const streamingContainer1 = document.getElementById('streaming-container1');
+            const streamingContainer2 = document.getElementById('streaming-container2');
+            const streamingContainer3 = document.getElementById('streaming-container3');
+            let streamingURL1, streamingURL2, streamingURL3;
+
+            if (isTV) {
+                streamingURL1 = `https://player.smashy.stream/tv/${id}?s=${season}&e=${episode}`;
+                streamingURL2 = `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${season}&e=${episode}`;
+                streamingURL3 = `https://vidsrc.xyz/embed/tv/${id}?s=${season}&e=${episode}`;
+            } else {
+                streamingURL1 = `https://player.smashy.stream/movie/${id}`;
+                streamingURL2 = `https://multiembed.mov/?video_id=${id}&tmdb=1`;
+                streamingURL3 = `https://vidsrc.xyz/embed/movie/${id}`;
+            }
+
+            streamingContainer1.innerHTML = `
+                <iframe width="560" height="315" src="${streamingURL1}" frameborder="0" allowfullscreen></iframe>
+            `;
+            streamingContainer2.innerHTML = `
+                <iframe width="560" height="315" src="${streamingURL2}" frameborder="0" allowfullscreen></iframe>
+            `;
+            streamingContainer3.innerHTML = `
+                <iframe width="560" height="315" src="${streamingURL3}" frameborder="0" allowfullscreen></iframe>
+            `;
+        }
+
+        async function init() {
+            if (id) {
+                const details = await fetchDetails(id, isTV);
+                displayDetails(details, isTV);
+
+                const credits = await fetchCredits(id, isTV);
+                displayCredits(credits);
+
+                if (isTV) {
+                    displaySeasons(id);
+                } else {
+                    displayStreamingURL(id, isTV);
+                }
+            }
+        }
+
+        init();
+    </script>
+
+</body>
+</html>
+
+

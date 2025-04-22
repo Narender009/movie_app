@@ -433,3 +433,37 @@ footer a:hover {
 
 
 
+
+
+
+
+@media screen and (min-width: 1200px) {
+   /* Large TV screens */
+   .table-wrapper {
+      max-width: 90%;
+      margin: 30px auto;
+   }
+   
+   .table-wrapper th, .table-wrapper td {
+      font-size: 22px; /* Even larger for big screens */
+      padding: 20px;
+   }
+}
+
+/* For smaller TV screens and when orientation changes */
+@media screen and (max-width: 1199px) {
+   .table-wrapper {
+      max-height: 50vh; /* Slightly reduce height for smaller screens */
+   }
+}
+
+/* Make sure the table is always accessible on smart TVs with limited input methods */
+.table-wrapper:focus-within {
+   outline: 3px solid #007BFF;
+}
+
+/* Ensure rows are selectable via remote control on smart TVs */
+.table-wrapper tr:focus-within {
+   background-color: #007BFF;
+   outline: none;
+}

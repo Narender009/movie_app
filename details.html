@@ -220,12 +220,12 @@
 
             if (isTV) {
                 streamingURL1 = `https://player.smashy.stream/tv/${id}?s=${season}&e=${episode}`;
-                streamingURL2 = `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${season}&e=${episode}`;
+                streamingURL2 = `https://vidsrc.dev/embed/tv/${id}&tmdb=1&s=${season}&e=${episode}`;
                 streamingURL3 = `https://vidsrc.xyz/embed/tv/${id}?s=${season}&e=${episode}`;
                 
             } else {
                 streamingURL1 = `https://player.smashy.stream/movie/${id}`;
-                streamingURL2 = `https://multiembed.mov/?video_id=${id}&tmdb=1`;
+                streamingURL2 = `https://vidsrc.dev/embed/movie/${id}&tmdb=1`;
                 streamingURL3 = `https://vidsrc.xyz/embed/movie/${id}`;
                 
             }
